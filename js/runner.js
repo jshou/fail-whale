@@ -17,6 +17,7 @@ require.config({
 require(['easel', 'keypress'], function(createjs, k) {
   var canvas = $('.main')[0];
   var stage = new createjs.Stage(canvas);
+  var gravity = -2;
 
   var Player = function(stage) {
     // player attributes
@@ -24,8 +25,7 @@ require(['easel', 'keypress'], function(createjs, k) {
     var speed = 1;
     var color = 'rgba(255,0,0,1)';
     var size = 20;
-    var jumpVelocity = 1;
-    var gravity = -3;
+    var jumpVelocity = 22;
     var lastJump = 0;
 
     // initialize player shape
@@ -35,23 +35,23 @@ require(['easel', 'keypress'], function(createjs, k) {
     shape.y = stage.canvas.height - size;
     shape.x = stage.canvas.width / 2 - size / 2;
 
-//  k.combo('space', function() {
-//    lastJump = 1;
-//  });
+    k.combo('space', function() {
+      lastJump = 1;
+    });
 
     // player's tick function
     var tick = function() {
       // handle jump
-//    if (lastJump) {
-//      var height = jumpVelocity * lastJump + 0.5 * gravity*Math.pow(lastJump, 2);
-//      shape.y = canvas.height - size - height;
-//      lastJump++;
+      if (lastJump) {
+        var height = jumpVelocity * lastJump + 0.5 * gravity*Math.pow(lastJump, 2);
+        shape.y = canvas.height - size - height;
+        lastJump++;
 
-//      if (shape.y > stage.canvas.height - size) {
-//        lastJump = 0;
-//        shape.y = stage.canvas.height - size;
-//      }
-//    }
+        if (shape.y > stage.canvas.height - size) {
+          lastJump = 0;
+          shape.y = stage.canvas.height - size;
+        }
+      }
 
       // bounce back and forth
       if (shape.x + size >= canvas.width || shape.x < 0) {
