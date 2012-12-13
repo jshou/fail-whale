@@ -17,7 +17,7 @@ require.config({
 require(['easel', 'keypress'], function(createjs, k) {
   var canvas = $('.main')[0];
   var stage = new createjs.Stage(canvas);
-  var gravity = -2;
+  var gravity = -0.1;
 
   var Player = function(stage) {
     // player attributes
@@ -25,7 +25,7 @@ require(['easel', 'keypress'], function(createjs, k) {
     var speed = 1;
     var color = 'rgba(255,0,0,1)';
     var size = 20;
-    var jumpVelocity = 22;
+    var jumpVelocity = 5;
     var lastJump = 0;
 
     // initialize player shape
@@ -36,7 +36,9 @@ require(['easel', 'keypress'], function(createjs, k) {
     shape.x = stage.canvas.width / 2 - size / 2;
 
     k.combo('space', function() {
-      lastJump = 1;
+      if (!lastJump) {
+        lastJump = 1;
+      }
     });
 
     // player's tick function
