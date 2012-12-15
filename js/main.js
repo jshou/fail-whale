@@ -37,7 +37,11 @@ require(['easel', 'keypress', 'whale', 'shark'], function(createjs, k, Whale, Sh
     stage.addChild(text);
   }
 
-  var whale = new Whale(canvas, stage, 70);
+  var whale = new Whale(stage, 70);
+  k.combo('space', function() {
+    whale.jump();
+  });
+
   var sharks = {};
 
   stage.tick = function() {
