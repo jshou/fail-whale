@@ -20,8 +20,8 @@ define(['easel', 'keypress'], function(createjs, k) {
     var forward = true;
     var speed = 1;
     var color = 'rgba(255,0,0,1)';
-    var jumpVelocity = 5;
-    var gravity = -0.1;
+    var jumpVelocity = 18;
+    var gravity = -0.4;
     var lastJump = 0;
 
     // initialize shape

@@ -12,7 +12,7 @@ require.config({
 define(['easel'], function(createjs) {
   var Shark = function(canvas, stage, size) {
     // attributes
-    var speed = 0.5;
+    var speed = 3;
     var color = 'rgba(0,0,255,1)';
     var frozen = false;
 

@@ -31,12 +31,13 @@ require(['easel', 'keypress', 'whale', 'shark'], function(createjs, k, Whale, Sh
   }
 
   var lose = function() {
-    var text = new createjs.Text("You lose!", "12px Arial", "#000000");
-    text.x = 10;
+    var text = new createjs.Text("You lose!", "50px Arial", "#000000");
+    text.x = 300;
+    text.y = 180;
     stage.addChild(text);
   }
 
-  var whale = new Whale(canvas, stage, 20);
+  var whale = new Whale(canvas, stage, 70);
   var sharks = {};
 
   stage.tick = function() {
@@ -62,7 +63,7 @@ require(['easel', 'keypress', 'whale', 'shark'], function(createjs, k, Whale, Sh
 
     // randomly create sharks
     if (Math.random() < chanceOfSharks) {
-      sharks[guid()] = new Shark(canvas, stage, 10);
+      sharks[guid()] = new Shark(canvas, stage, 50);
     }
 
     this.update();
