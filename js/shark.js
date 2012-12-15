@@ -23,40 +23,32 @@ define(['easel'], function(createjs) {
     shape.y = stage.canvas.height - size;
     shape.x = stage.canvas.width;
 
-    // tick function
-    var tick = function() {
-      if (!frozen) {
-        shape.x -= speed;
-      }
-    };
-
-    var destroy = function() {
-      shape.visible = false;
-    };
-
-    var left = function() {
-      return shape.x;
-    }
-
-    var right = function() {
-      return shape.x + size;
-    }
-
-    var height = function() {
-      return canvas.height - size;
-    }
-
-    var freeze = function() {
-      frozen = true;
-    }
-
     return {
-      left: left,
-      right: right,
-      freeze: freeze,
-      height: height,
-      tick: tick,
-      destroy: destroy,
+      left: function() {
+        return shape.x;
+      },
+
+      right: function() {
+        return shape.x + size;
+      },
+
+      freeze: function() {
+        frozen = true;
+      },
+
+      height: function() {
+        return canvas.height - size;
+      },
+
+      tick: function() {
+        if (!frozen) {
+          shape.x -= speed;
+        }
+      },
+
+      destroy: function() {
+        shape.visible = false;
+      },
     };
   };
 

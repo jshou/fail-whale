@@ -37,23 +37,20 @@ define(['easel', 'keypress'], function(createjs, k) {
       }
     });
 
-    var tick = function() {
-      // handle jump
-      if (lastJump) {
-        var height = jumpVelocity * lastJump + 0.5 * gravity*Math.pow(lastJump, 2);
-        shape.y = canvas.height - size - height;
-        lastJump++;
+    return {
+      tick: function() {
+        // handle jump
+        if (lastJump) {
+          var height = jumpVelocity * lastJump + 0.5 * gravity*Math.pow(lastJump, 2);
+          shape.y = canvas.height - size - height;
+          lastJump++;
 
-        if (shape.y > stage.canvas.height - size) {
-          lastJump = 0;
-          shape.y = stage.canvas.height - size;
+          if (shape.y > stage.canvas.height - size) {
+            lastJump = 0;
+            shape.y = stage.canvas.height - size;
+          }
         }
       }
-    };
-
-    return {
-      shape: shape,
-      tick: tick
     };
   };
 
