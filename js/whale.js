@@ -15,12 +15,11 @@ require.config({
 });
 
 define(['easel', 'keypress'], function(createjs, k) {
-  var Whale = function(canvas, stage) {
+  var Whale = function(canvas, stage, size) {
     // attributes
     var forward = true;
     var speed = 1;
     var color = 'rgba(255,0,0,1)';
-    var size = 20;
     var jumpVelocity = 5;
     var gravity = -0.1;
     var lastJump = 0;
