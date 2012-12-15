@@ -67,7 +67,7 @@ require(['easel', 'keypress', 'whale', 'shark'], function(createjs, k, Whale, Sh
 
     // randomly create sharks
     if (Math.random() < chanceOfSharks) {
-      sharks[guid()] = new Shark(canvas, stage, 50);
+      sharks[guid()] = new Shark(stage, 50);
     }
 
     this.update();

@@ -10,50 +10,43 @@ require.config({
 });
 
 define(['easel'], function(createjs) {
-  var Shark = function(canvas, stage, size) {
-    // attributes
-    var speed = 3;
-    var color = 'rgba(0,0,255,1)';
-    var frozen = false;
+  var Shark = function(stage, size) {
+    this.stage = stage;
+    this.size = size;
+
+    this.speed = 3;
+    this.color = 'rgba(0,0,255,1)';
 
     // initialize shape
-    var shape = new createjs.Shape();
-    shape.graphics.beginFill(color).drawRect(0,0, size, size);
-    stage.addChild(shape);
-    shape.y = stage.canvas.height - size;
-    shape.x = stage.canvas.width;
+    this.shape = new createjs.Shape();
+    this.shape.graphics.beginFill(this.color).drawRect(0,0, this.size, this.size);
+    this.shape.y = this.stage.canvas.height - this.size;
+    this.shape.x = this.stage.canvas.width;
+    this.stage.addChild(this.shape);
+  };
 
-    return {
-      left: function() {
-        return shape.x;
-      },
+  Shark.prototype.left = function() {
+    return this.shape.x;
+  };
 
-      right: function() {
-        return shape.x + size;
-      },
+  Shark.prototype.right = function() {
+    return this.shape.x + this.size;
+  };
 
-      freeze: function() {
-        frozen = true;
-      },
+  Shark.prototype.height = function() {
+    return this.stage.canvas.height - this.size;
+  };
 
-      height: function() {
-        return canvas.height - size;
-      },
+  Shark.prototype.top = function() {
+    return this.shape.y;
+  };
 
-      top: function() {
-        return shape.y;
-      },
+  Shark.prototype.tick = function() {
+    this.shape.x -= this.speed;
+  };
 
-      tick: function() {
-        if (!frozen) {
-          shape.x -= speed;
-        }
-      },
-
-      destroy: function() {
-        shape.visible = false;
-      },
-    };
+  Shark.prototype.destroy = function() {
+    this.shape.visible = false;
   };
 
   return Shark;
