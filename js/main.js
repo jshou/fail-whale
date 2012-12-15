@@ -14,17 +14,29 @@ require(['easel', 'whale', 'shark'], function(createjs, Whale, Shark) {
   var canvas = $('.main')[0];
   var stage = new createjs.Stage(canvas);
 
+  var guid = function(){
+    return Math.random().toString(16);
+  };
+
 
   var whale = new Whale(canvas, stage, 20);
-  var sharks = [];
+  var sharks = {};
 
-  sharks.push(new Shark(canvas, stage, 30));
+  sharks[guid()] = new Shark(canvas, stage, 30);
 
   stage.tick = function() {
     whale.tick();
-    sharks.forEach(function(shark) {
+
+    for (id in sharks) {
+      var shark = sharks[id];
       shark.tick();
-    });
+
+      // delete the shark once it goes off screen
+      if (shark.right() < 0) {
+        shark.destroy();
+        delete sharks[id];
+      }
+    }
 
     this.update();
   };

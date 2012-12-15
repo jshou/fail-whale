@@ -27,10 +27,23 @@ define(['easel'], function(createjs) {
       shape.x -= speed;
     };
 
+    var destroy = function() {
+      shape.visible = false;
+    };
+
+    var left = function() {
+      return shape.x;
+    }
+
+    var right = function() {
+      return shape.x + size;
+    }
+
     return {
-      left: shape.x,
-      right: shape.x + size,
+      left: left,
+      right: right,
       tick: tick,
+      destroy: destroy,
     };
   };
 
