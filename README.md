@@ -1,1 +1,1 @@
-runner is a game.
+fail-whale is a game.
