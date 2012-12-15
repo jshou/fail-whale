@@ -14,6 +14,7 @@ define(['easel'], function(createjs) {
     // attributes
     var speed = 0.5;
     var color = 'rgba(0,0,255,1)';
+    var frozen = false;
 
     // initialize shape
     var shape = new createjs.Shape();
@@ -24,7 +25,9 @@ define(['easel'], function(createjs) {
 
     // tick function
     var tick = function() {
-      shape.x -= speed;
+      if (!frozen) {
+        shape.x -= speed;
+      }
     };
 
     var destroy = function() {
@@ -39,9 +42,19 @@ define(['easel'], function(createjs) {
       return shape.x + size;
     }
 
+    var height = function() {
+      return canvas.height - size;
+    }
+
+    var freeze = function() {
+      frozen = true;
+    }
+
     return {
       left: left,
       right: right,
+      freeze: freeze,
+      height: height,
       tick: tick,
       destroy: destroy,
     };
