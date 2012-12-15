@@ -13,6 +13,7 @@ require.config({
 require(['easel', 'whale', 'shark'], function(createjs, Whale, Shark) {
   var canvas = $('.main')[0];
   var stage = new createjs.Stage(canvas);
+  var chanceOfSharks = 0.008;
 
   var guid = function(){
     return Math.random().toString(16);
@@ -22,11 +23,10 @@ require(['easel', 'whale', 'shark'], function(createjs, Whale, Shark) {
   var whale = new Whale(canvas, stage, 20);
   var sharks = {};
 
-  sharks[guid()] = new Shark(canvas, stage, 30);
-
   stage.tick = function() {
     whale.tick();
 
+    // process all the sharks
     for (id in sharks) {
       var shark = sharks[id];
       shark.tick();
@@ -36,6 +36,11 @@ require(['easel', 'whale', 'shark'], function(createjs, Whale, Shark) {
         shark.destroy();
         delete sharks[id];
       }
+    }
+
+    // randomly create sharks
+    if (Math.random() < chanceOfSharks) {
+      sharks[guid()] = new Shark(canvas, stage, 30);
     }
 
     this.update();
