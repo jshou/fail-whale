@@ -37,7 +37,6 @@ define(['easel', 'keypress'], function(createjs, k) {
       }
     });
 
-    // tick function
     var tick = function() {
       // handle jump
       if (lastJump) {
@@ -49,17 +48,6 @@ define(['easel', 'keypress'], function(createjs, k) {
           lastJump = 0;
           shape.y = stage.canvas.height - size;
         }
-      }
-
-      // bounce back and forth
-      if (shape.x + size >= canvas.width || shape.x < 0) {
-        forward = !forward;
-      }
-
-      if (forward) {
-        shape.x += speed;
-      } else {
-        shape.x -= speed;
       }
     };
 
