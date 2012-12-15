@@ -40,6 +40,10 @@ define(['easel'], function(createjs) {
         return canvas.height - size;
       },
 
+      top: function() {
+        return shape.y;
+      },
+
       tick: function() {
         if (!frozen) {
           shape.x -= speed;

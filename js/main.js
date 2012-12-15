@@ -3,6 +3,10 @@ require.config({
     easel: {
       exports: 'createjs'
     },
+
+    keypress: {
+      exports: 'keypress'
+    },
   },
   paths: {
     easel: 'easeljs-0.5.0.min',
@@ -10,7 +14,7 @@ require.config({
   }
 });
 
-require(['easel', 'whale', 'shark'], function(createjs, Whale, Shark) {
+require(['easel', 'keypress', 'whale', 'shark'], function(createjs, k, Whale, Shark) {
   var canvas = $('.main')[0];
   var stage = new createjs.Stage(canvas);
   var chanceOfSharks = 0.008;
@@ -19,6 +23,18 @@ require(['easel', 'whale', 'shark'], function(createjs, Whale, Shark) {
     return Math.random().toString(16);
   };
 
+  var collide = function(s, w) {
+    var sharkLeftOverlap = s.left() <= w.right() && s.left() >= w.left();
+    var sharkRightOverlap = s.right() <= w.right() && s.right() >= w.left();
+
+    return (sharkLeftOverlap || sharkRightOverlap) && (s.top() < w.bottom());
+  }
+
+  var lose = function() {
+    var text = new createjs.Text("You lose!", "12px Arial", "#000000");
+    text.x = 10;
+    stage.addChild(text);
+  }
 
   var whale = new Whale(canvas, stage, 20);
   var sharks = {};
@@ -35,6 +51,12 @@ require(['easel', 'whale', 'shark'], function(createjs, Whale, Shark) {
       if (shark.right() < 0) {
         shark.destroy();
         delete sharks[id];
+      }
+
+      // lose!
+      if (collide(shark, whale)) {
+        createjs.Ticker.removeAllListeners();
+        lose();
       }
     }
 

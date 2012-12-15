@@ -38,10 +38,22 @@ define(['easel', 'keypress'], function(createjs, k) {
     });
 
     return {
+      left: function() {
+        return shape.x;
+      },
+
+      right: function() {
+        return shape.x + size;
+      },
+
+      bottom: function() {
+        return shape.y + size;
+      },
+
       tick: function() {
         // handle jump
         if (lastJump) {
-          var height = jumpVelocity * lastJump + 0.5 * gravity*Math.pow(lastJump, 2);
+          var height = jumpVelocity * lastJump + 0.5 * gravity * Math.pow(lastJump, 2);
           shape.y = canvas.height - size - height;
           lastJump++;
 
