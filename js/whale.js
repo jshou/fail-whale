@@ -15,16 +15,16 @@ require.config({
 });
 
 define(['easel', 'keypress'], function(createjs, k) {
-  var Whale = function(stage, size) {
+  var Whale = function(stage, opts) {
     this.stage = stage;
-    this.size = size;
+    this.size = opts.size;
 
     // attributes
     this.forward = true;
-    this.speed = 1;
-    this.color = 'rgba(255,0,0,1)';
-    this.jumpVelocity = 18;
-    this.gravity = -0.4;
+    this.speed = opts.speed;
+    this.color = opts.color;
+    this.jumpVelocity = opts.jumpVelocity;
+    this.gravity = opts.gravity;
     this.lastJump = 0;
 
     // initialize shape
