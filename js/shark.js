@@ -10,12 +10,12 @@ require.config({
 });
 
 define(['easel'], function(createjs) {
-  var Shark = function(stage, size) {
+  var Shark = function(stage, opts) {
     this.stage = stage;
-    this.size = size;
+    this.size = opts.size;
 
-    this.speed = 3;
-    this.color = 'rgba(0,0,255,1)';
+    this.speed = opts.speed;
+    this.color = opts.color;
 
     // initialize shape
     this.shape = new createjs.Shape();

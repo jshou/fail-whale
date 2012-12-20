@@ -15,6 +15,17 @@ require.config({
 });
 
 require(['easel', 'keypress', 'whale', 'shark'], function(createjs, k, Whale, Shark) {
+  var WHALE_SIZE = 70;
+  var WHALE_SPEED = 1;
+  var WHALE_COLOR = 'rgba(255,0,0,1)';
+  var WHALE_JUMP_VELOCITY = 18;
+  var WHALE_GRAVITY = -0.4;
+
+  var SHARK_SIZE = 50;
+  var SHARK_SPEED = 3;
+  var SHARK_COLOR = 'rgba(0,0,255,1)';
+
+
   var canvas = $('.main')[0];
   var stage = new createjs.Stage(canvas);
   var chanceOfSharks = 0.008;
@@ -37,7 +48,14 @@ require(['easel', 'keypress', 'whale', 'shark'], function(createjs, k, Whale, Sh
     stage.addChild(text);
   }
 
-  var whale = new Whale(stage, 70);
+  var whale = new Whale(stage, {
+    size: WHALE_SIZE,
+    speed: WHALE_SPEED,
+    color: WHALE_COLOR,
+    jumpVelocity: WHALE_JUMP_VELOCITY,
+    gravity: WHALE_GRAVITY,
+  });
+
   k.combo('space', function() {
     whale.jump();
   });
@@ -67,7 +85,11 @@ require(['easel', 'keypress', 'whale', 'shark'], function(createjs, k, Whale, Sh
 
     // randomly create sharks
     if (Math.random() < chanceOfSharks) {
-      sharks[guid()] = new Shark(stage, 50);
+      sharks[guid()] = new Shark(stage, {
+        size: SHARK_SIZE,
+        speed: SHARK_SPEED,
+        color: SHARK_COLOR
+      });
     }
 
     this.update();
