@@ -21,6 +21,10 @@ require(['easel', 'keypress', 'whale', 'shark'], function(createjs, k, Whale, Sh
   var WHALE_JUMP_VELOCITY = 18;
   var WHALE_GRAVITY = -0.4;
 
+  var SHARK_SIZE = 50;
+  var SHARK_SPEED = 3;
+  var SHARK_COLOR = 'rgba(0,0,255,1)';
+
 
   var canvas = $('.main')[0];
   var stage = new createjs.Stage(canvas);
@@ -81,7 +85,11 @@ require(['easel', 'keypress', 'whale', 'shark'], function(createjs, k, Whale, Sh
 
     // randomly create sharks
     if (Math.random() < chanceOfSharks) {
-      sharks[guid()] = new Shark(stage, 50);
+      sharks[guid()] = new Shark(stage, {
+        size: SHARK_SIZE,
+        speed: SHARK_SPEED,
+        color: SHARK_COLOR
+      });
     }
 
     this.update();
