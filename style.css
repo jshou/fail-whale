@@ -8,22 +8,21 @@ div.container {
   position: relative;
   margin: 0 auto;
   width: 800px;
-  border: 1px solid red;
+  border: 1px solid black;
 }
 
 canvas.main {
   display: inline-block;
   margin: 0 auto;
-  border: 1px solid black;
 }
 
 input.start {
   display: block;
   position: absolute;
   height: 40px;
-  width: 100px;
+  width: 120px;
   top: 230px;
-  left: 350px;
+  left: 340px;
   border-radius: 20px;
   border: 4px solid #483D8B;
   text-transform: uppercase;
