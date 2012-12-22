@@ -25,6 +25,9 @@ require(['easel', 'keypress', 'whale', 'shark'], function(createjs, k, Whale, Sh
   var SHARK_SPEED = 3;
   var SHARK_COLOR = 'rgba(0,0,255,1)';
 
+  var MAX_JUMP = SHARK_SIZE * 2;
+  var ENOUGH_SPACE = 1.5 * WHALE_SIZE;
+
 
   var canvas = $('.main')[0];
   var stage = new createjs.Stage(canvas);
@@ -54,6 +57,7 @@ require(['easel', 'keypress', 'whale', 'shark'], function(createjs, k, Whale, Sh
   });
 
   var sharks = {};
+  var lastShark = null;
 
   stage.tick = function() {
     whale.tick();
@@ -78,11 +82,26 @@ require(['easel', 'keypress', 'whale', 'shark'], function(createjs, k, Whale, Sh
 
     // randomly create sharks
     if (Math.random() < chanceOfSharks) {
-      sharks[guid()] = new Shark(stage, {
-        size: SHARK_SIZE,
-        speed: SHARK_SPEED,
-        color: SHARK_COLOR
-      });
+      var sharkAllowed;
+      if (lastShark) {
+        var closeEnough = (canvas.width - lastShark.left() + SHARK_SIZE) < MAX_JUMP;
+        var farEnoughAway = (canvas.width - lastShark.right()) > ENOUGH_SPACE;
+
+        sharkAllowed = closeEnough || farEnoughAway;
+      } else {
+        sharkAllowed = true;
+      }
+
+      if (sharkAllowed) {
+        var newShark = new Shark(stage, {
+          size: SHARK_SIZE,
+          speed: SHARK_SPEED,
+          color: SHARK_COLOR
+        });
+
+        sharks[guid()] = newShark;
+        lastShark = newShark;
+      }
     }
 
     this.update();
