@@ -34,13 +34,6 @@ require(['easel', 'keypress', 'whale', 'shark'], function(createjs, k, Whale, Sh
     return Math.random().toString(16);
   };
 
-  var collide = function(s, w) {
-    var sharkLeftOverlap = s.left() <= w.right() && s.left() >= w.left();
-    var sharkRightOverlap = s.right() <= w.right() && s.right() >= w.left();
-
-    return (sharkLeftOverlap || sharkRightOverlap) && (s.top() < w.bottom());
-  }
-
   var lose = function() {
     var text = new createjs.Text("You lose!", "50px Arial", "#000000");
     text.x = 300;
@@ -77,7 +70,7 @@ require(['easel', 'keypress', 'whale', 'shark'], function(createjs, k, Whale, Sh
       }
 
       // lose!
-      if (collide(shark, whale)) {
+      if (shark.collide(whale)) {
         createjs.Ticker.removeAllListeners();
         lose();
       }

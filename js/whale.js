@@ -3,18 +3,13 @@ require.config({
     easel: {
       exports: 'createjs'
     },
-
-    keypress: {
-      exports: 'keypress'
-    },
   },
   paths: {
     easel: 'easeljs-0.5.0.min',
-    keypress: 'keypress',
   }
 });
 
-define(['easel', 'keypress'], function(createjs, k) {
+define(['easel', 'keypress'], function(createjs) {
   var Whale = function(stage, opts) {
     this.stage = stage;
     this.size = opts.size;

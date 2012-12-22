@@ -49,6 +49,13 @@ define(['easel'], function(createjs) {
     this.shape.visible = false;
   };
 
+  Shark.prototype.collide = function(w) {
+    var leftOverlap = this.left() <= w.right() && this.left() >= w.left();
+    var rightOverlap = this.right() <= w.right() && this.right() >= w.left();
+
+    return (leftOverlap || rightOverlap) && (this.top() < w.bottom());
+  }
+
   return Shark;
 });
 
