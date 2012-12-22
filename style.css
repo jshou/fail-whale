@@ -30,3 +30,8 @@ input.start {
   font-weight: bold;
   color: white;
 }
+
+input.start:hover {
+  background-color: #92B5F2;
+  border-color: #7F77AE;
+}
