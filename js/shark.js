@@ -50,12 +50,15 @@ define(['easel'], function(createjs) {
   };
 
   Shark.prototype.collide = function(w) {
+    return this.overlap(w) && (this.top() < w.bottom());
+  }
+
+  Shark.prototype.overlap = function(w) {
     var leftOverlap = this.left() <= w.right() && this.left() >= w.left();
     var rightOverlap = this.right() <= w.right() && this.right() >= w.left();
 
-    return (leftOverlap || rightOverlap) && (this.top() < w.bottom());
+    return (leftOverlap || rightOverlap);
   }
 
   return Shark;
 });
-

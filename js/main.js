@@ -25,13 +25,13 @@ require(['easel', 'keypress', 'whale', 'shark'], function(createjs, k, Whale, Sh
   var SHARK_SPEED = 3;
   var SHARK_COLOR = 'rgba(0,0,255,1)';
 
-  var MAX_JUMP = SHARK_SIZE * 2;
-  var ENOUGH_SPACE = 1.5 * WHALE_SIZE;
+  var MAX_JUMP = 2.3 * SHARK_SIZE;
+  var ENOUGH_SPACE = 2.7 * WHALE_SIZE;
+  var CHANCE_OF_SHARKS = 1.008;
 
 
   var canvas = $('.main')[0];
   var stage = new createjs.Stage(canvas);
-  var chanceOfSharks = 0.008;
 
   var guid = function(){
     return Math.random().toString(16);
@@ -56,8 +56,13 @@ require(['easel', 'keypress', 'whale', 'shark'], function(createjs, k, Whale, Sh
     whale.jump();
   });
 
-  var sharks = {};
-  var lastShark = null;
+  var firstShark = new Shark(stage, {
+    size: SHARK_SIZE,
+    speed: SHARK_SPEED,
+    color: SHARK_COLOR,
+  });
+  var lastShark = firstShark;
+  var sharks = {first: firstShark};
 
   stage.tick = function() {
     whale.tick();
@@ -81,18 +86,15 @@ require(['easel', 'keypress', 'whale', 'shark'], function(createjs, k, Whale, Sh
     }
 
     // randomly create sharks
-    if (Math.random() < chanceOfSharks) {
-      var sharkAllowed;
-      if (lastShark) {
-        var closeEnough = (canvas.width - lastShark.left() + SHARK_SIZE) < MAX_JUMP;
-        var farEnoughAway = (canvas.width - lastShark.right()) > ENOUGH_SPACE;
+    if (Math.random() < CHANCE_OF_SHARKS) {
+      var closeEnough = (canvas.width - firstShark.left() + SHARK_SIZE) < MAX_JUMP;
+      var farEnoughAway = (canvas.width - lastShark.right()) > ENOUGH_SPACE;
 
-        sharkAllowed = closeEnough || farEnoughAway;
-      } else {
-        sharkAllowed = true;
-      }
-
-      if (sharkAllowed) {
+      // only spawn a shark if the new shark would be close enough to the first
+      // shark in a group that the whale could still jump over
+      // OR
+      // the last shark is far enough away that the whale has space to land
+      if (closeEnough || farEnoughAway) {
         var newShark = new Shark(stage, {
           size: SHARK_SIZE,
           speed: SHARK_SPEED,
@@ -101,6 +103,12 @@ require(['easel', 'keypress', 'whale', 'shark'], function(createjs, k, Whale, Sh
 
         sharks[guid()] = newShark;
         lastShark = newShark;
+
+        // reset first shark if current first shark is far enough over for whale
+        // to jump over AND have enough space to land
+        if (firstShark.right() < (canvas.width - MAX_JUMP - ENOUGH_SPACE)) {
+          firstShark = newShark;
+        }
       }
     }
 
