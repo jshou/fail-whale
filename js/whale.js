@@ -39,7 +39,7 @@ define(['easel', 'keypress'], function(createjs) {
       }
     });
     this.shape = new createjs.BitmapAnimation(spriteSheet);
-    this.shape.y = this.stage.canvas.height - this.height;;
+    this.shape.y = this.stage.canvas.height - this.height;
     this.shape.x = this.stage.canvas.width / 2 - this.width / 2;
     this.shape.gotoAndPlay("swim");
 

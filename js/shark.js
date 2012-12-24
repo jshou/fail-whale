@@ -17,11 +17,25 @@ define(['easel'], function(createjs) {
     this.speed = opts.speed;
     this.color = opts.color;
 
-    // initialize shape
-    this.shape = new createjs.Shape();
-    this.shape.graphics.beginFill(this.color).drawRect(0,0, this.size, this.size);
-    this.shape.y = this.stage.canvas.height - this.size;
+    // draw animated whale
+    var sharkImage = new Image();
+    sharkImage.src = 'images/shark.png';
+    var spriteSheet = new createjs.SpriteSheet({
+      // image to use
+      images: [sharkImage],
+      // width, height & registration point of each sprite
+      frames: {width: 55, height: 55},
+      animations: {
+        swim: { // three frames per tick, slows down the animation
+          frames:[0]
+        }
+      }
+    });
+    this.shape = new createjs.BitmapAnimation(spriteSheet);
+    this.shape.y = this.stage.canvas.height - this.size;;
     this.shape.x = this.stage.canvas.width;
+    this.shape.gotoAndPlay("swim");
+
     this.stage.addChild(this.shape);
   };
 
