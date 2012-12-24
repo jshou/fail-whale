@@ -26,6 +26,7 @@ define(['easel', 'keypress', 'whale', 'shark'], function(createjs, k, Whale, Sha
     var SHARK_SIZE = 50;
     var SHARK_SPEED = 3;
     var SHARK_COLOR = 'rgba(0,0,255,1)';
+    var SHARK_SQUISH = 8; // how many pixels overlap does the shark get before collision
 
     var MAX_JUMP = 2.3 * SHARK_SIZE;
     var ENOUGH_SPACE = 1.8 * WHALE_WIDTH;
@@ -64,6 +65,7 @@ define(['easel', 'keypress', 'whale', 'shark'], function(createjs, k, Whale, Sha
       size: SHARK_SIZE,
       speed: SHARK_SPEED,
       color: SHARK_COLOR,
+      squish: SHARK_SQUISH,
     });
     var lastShark = firstShark;
     var sharks = {first: firstShark};
@@ -102,7 +104,8 @@ define(['easel', 'keypress', 'whale', 'shark'], function(createjs, k, Whale, Sha
           var newShark = new Shark(stage, {
             size: SHARK_SIZE,
             speed: SHARK_SPEED,
-            color: SHARK_COLOR
+            color: SHARK_COLOR,
+            squish: SHARK_SQUISH,
           });
 
           sharks[guid()] = newShark;

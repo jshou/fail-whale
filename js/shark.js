@@ -16,6 +16,7 @@ define(['easel'], function(createjs) {
 
     this.speed = opts.speed;
     this.color = opts.color;
+    this.squish = opts.squish;
 
     // draw animated whale
     var sharkImage = new Image();
@@ -64,12 +65,14 @@ define(['easel'], function(createjs) {
   };
 
   Shark.prototype.collide = function(w) {
-    return this.overlap(w) && (this.top() < w.bottom());
+    return this.overlap(w) && (this.top() < (w.bottom() - this.squish));
   }
 
   Shark.prototype.overlap = function(w) {
-    var leftOverlap = this.left() <= w.right() && this.left() >= w.left();
-    var rightOverlap = this.right() <= w.right() && this.right() >= w.left();
+    var whaleRight = w.right() - this.squish;
+    var whaleLeft = w.left() + this.squish;
+    var leftOverlap = this.left() <= whaleRight && this.left() >= whaleLeft;
+    var rightOverlap = this.right() <= whaleRight && this.right() >= whaleLeft;
 
     return (leftOverlap || rightOverlap);
   }
