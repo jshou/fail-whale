@@ -20,15 +20,15 @@ define(['easel', 'keypress', 'whale', 'shark'], function(createjs, k, Whale, Sha
     var WHALE_WIDTH = 173;
     var WHALE_SPEED = 1;
     var WHALE_COLOR = 'rgba(255,0,0,1)';
-    var WHALE_JUMP_VELOCITY = 18;
-    var WHALE_GRAVITY = -0.4;
+    var WHALE_JUMP_VELOCITY = 12.7;
+    var WHALE_GRAVITY = -0.2;
 
     var SHARK_SIZE = 50;
     var SHARK_SPEED = 3;
     var SHARK_COLOR = 'rgba(0,0,255,1)';
 
     var MAX_JUMP = 2.3 * SHARK_SIZE;
-    var ENOUGH_SPACE = 2.7 * WHALE_WIDTH;
+    var ENOUGH_SPACE = 1.8 * WHALE_WIDTH;
     var CHANCE_OF_SHARKS = 0.008;
 
 
