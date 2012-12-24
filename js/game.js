@@ -16,7 +16,8 @@ require.config({
 
 define(['easel', 'keypress', 'whale', 'shark'], function(createjs, k, Whale, Shark) {
   var Game = function(finish) {
-    var WHALE_SIZE = 70;
+    var WHALE_HEIGHT = 98;
+    var WHALE_WIDTH = 173;
     var WHALE_SPEED = 1;
     var WHALE_COLOR = 'rgba(255,0,0,1)';
     var WHALE_JUMP_VELOCITY = 18;
@@ -27,7 +28,7 @@ define(['easel', 'keypress', 'whale', 'shark'], function(createjs, k, Whale, Sha
     var SHARK_COLOR = 'rgba(0,0,255,1)';
 
     var MAX_JUMP = 2.3 * SHARK_SIZE;
-    var ENOUGH_SPACE = 2.7 * WHALE_SIZE;
+    var ENOUGH_SPACE = 2.7 * WHALE_WIDTH;
     var CHANCE_OF_SHARKS = 0.008;
 
 
@@ -47,7 +48,8 @@ define(['easel', 'keypress', 'whale', 'shark'], function(createjs, k, Whale, Sha
     }
 
     var whale = new Whale(stage, {
-      size: WHALE_SIZE,
+      height: WHALE_HEIGHT,
+      width: WHALE_WIDTH,
       speed: WHALE_SPEED,
       color: WHALE_COLOR,
       jumpVelocity: WHALE_JUMP_VELOCITY,
