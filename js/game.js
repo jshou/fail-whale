@@ -41,7 +41,7 @@ define(['easel', 'keypress', 'whale', 'shark'], function(createjs, k, Whale, Sha
     };
 
     var lose = function() {
-      var text = new createjs.Text("You lose!", "50px Arial", "#000000");
+      var text = new createjs.Text("You fail!", "50px Arial", "#000000");
       text.x = 300;
       text.y = 160;
       stage.addChild(text);
